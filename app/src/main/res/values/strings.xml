@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Tariq Jaddah Optical</string>
+    <string name="nav_catalog">Catalog</string>
+    <string name="nav_inventory">Stock &amp; POs</string>
+    <string name="nav_retail_orders">Orders</string>
+    <string name="nav_reports">Reports</string>
+    <string name="nav_crm_ledger">Ledger &amp; CRM</string>
+    <string name="hero_subtitle">Tariq Jaddah Optical Wholesale (Per-Piece Stock)</string>
+    <string name="search_catalog_hint">Search SKU, brand, index, or base curve…</string>
+    <string name="low_stock_banner_title">Low Stock Threshold Alert</string>
+    <string name="btn_new_product">New Product</string>
+    <string name="btn_add_new_stock">Add New Stock</string>
+    <string name="btn_new_retail_order">New Retail Order</string>
+    <string name="btn_manual_restock">Place Supplier PO</string>
+    <string name="empty_catalog_message">No optical products match your current filter.</string>
+    <string name="empty_orders_message">No retailer orders found in this stage.</string>
+    <string name="empty_restock_message">No manual supplier restock orders recorded yet.</string>
+</resources>

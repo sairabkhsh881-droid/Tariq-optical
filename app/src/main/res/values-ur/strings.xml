@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">طارق جدہ آپٹیکل</string>
+    <string name="nav_catalog">کیٹلاگ</string>
+    <string name="nav_inventory">اسٹاک اور الرٹس</string>
+    <string name="nav_retail_orders">آرڈرز</string>
+    <string name="nav_reports">رپورٹس</string>
+    <string name="nav_crm_ledger">کھاتہ اور CRM</string>
+    <string name="hero_subtitle">طارق جدہ آپٹیکل ہول سیل (فی پیس اسٹاک)</string>
+    <string name="search_catalog_hint">SKU، برانڈ یا لینز انڈیکس تلاش کریں…</string>
+    <string name="low_stock_banner_title">کم اسٹاک الرٹ</string>
+    <string name="btn_new_product">نیا پراڈکٹ</string>
+    <string name="btn_add_new_stock">نیا اسٹاک شامل کریں</string>
+    <string name="btn_new_retail_order">نیا آرڈر</string>
+    <string name="btn_manual_restock">سپلائر آرڈر</string>
+    <string name="empty_catalog_message">فلٹر کے مطابق کوئی پراڈکٹ نہیں ملا۔</string>
+    <string name="empty_orders_message">اس مرحلے میں کوئی آرڈر نہیں ملا۔</string>
+    <string name="empty_restock_message">ابھی تک کوئی سپلائر آرڈر درج نہیں کیا گیا۔</string>
+</resources>

@@ -1,0 +1,6 @@
+{
+  "name": "Tariq Jaddah Optical",
+  "description": "B2B & POS optical platform for Tariq Jaddah Optical featuring custom brand logo, user-managed products & customers, New Order & Counter Sale with SPH/CYL power selection, per-piece stock management, camera barcode scanner & printable barcode labels, PDF/JPG receipt bills, customer Khata ledger (03176858707 / 03087321947 Tariq Mehmood), Firebase Firestore offline persistence & cloud sync, Urdu/English support, and visual PKR sales analytics.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
