@@ -5,6 +5,9 @@ on:
     branches: [ "main", "master" ]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build-apk:
     runs-on: ubuntu-latest
@@ -12,23 +15,42 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Set up JDK 17
+      - name: Restore Debug Keystore
+        run: |
+          if [ -f debug.keystore.base64 ]; then
+            base64 -d debug.keystore.base64 > debug.keystore
+          fi
+
+      - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
-          java-version: '17'
+          java-version: '21'
           distribution: 'temurin'
 
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v3
+        uses: gradle/actions/setup-gradle@v4
         with:
-          gradle-version: '8.11.1'
+          gradle-version: '9.0'
 
       - name: Build Debug APK
         run: gradle assembleDebug
 
-      - name: Upload Direct APK for Download (No USB Needed)
+      - name: Copy APK with Clean Name
+        run: cp app/build/outputs/apk/debug/app-debug.apk Tariq_Jaddah_Optical.apk
+
+      - name: Upload Direct APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: Tariq-Jaddah-Optical-APK
-          path: app/build/outputs/apk/debug/app-debug.apk
+          path: Tariq_Jaddah_Optical.apk
           if-no-files-found: error
+
+      - name: Publish Direct APK to GitHub Releases
+        uses: softprops/action-gh-release@v2
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        with:
+          tag_name: v1.0-latest
+          name: "Tariq Jaddah Optical - Direct Android APK"
+          body: "Tap **Tariq_Jaddah_Optical.apk** below under Assets to download and install directly on your Android phone without a USB cable."
+          files: Tariq_Jaddah_Optical.apk
+          prerelease: false

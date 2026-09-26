@@ -2,6 +2,7 @@ package com.example.ui.components
 
 import android.content.ContentValues
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
@@ -81,7 +82,7 @@ private fun exportInstalledApkToDownloads(context: Context): String {
     return try {
         val sourceApk = File(context.applicationInfo.sourceDir)
         if (!sourceApk.exists()) {
-            return "APK source not found on this runtime; use the Code tab -> app/build/outputs/apk/debug/app-debug.apk"
+            return "APK source not found on this runtime."
         }
         val fileName = "Tariq_Jaddah_Optical.apk"
         val sizeMb = String.format(Locale.US, "%.1f MB", sourceApk.length() / (1024.0 * 1024.0))
@@ -104,7 +105,20 @@ private fun exportInstalledApkToDownloads(context: Context): String {
             values.clear()
             values.put(MediaStore.Downloads.IS_PENDING, 0)
             resolver.update(uri, values, null, null)
-            "Saved direct APK: Downloads/$fileName ($sizeMb) — ready to share via WhatsApp / Google Drive (No USB needed)!"
+
+            runCatching {
+                val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                    type = "application/vnd.android.package-archive"
+                    putExtra(Intent.EXTRA_STREAM, uri)
+                    addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_ACTIVITY_NEW_TASK)
+                }
+                val chooser = Intent.createChooser(shareIntent, "Save / Share $fileName ($sizeMb)").apply {
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                }
+                context.startActivity(chooser)
+            }
+
+            "Saved inside Android Downloads/$fileName ($sizeMb). NOTE: In the AI Studio browser preview, this phone is a Cloud Emulator — to download the APK to your physical laptop or phone, click the Settings (⚙️) or GitHub icon at the very top-right of the AI Studio webpage (outside the phone screen)."
         } else {
             val downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
             downloadsDir.mkdirs()
@@ -114,10 +128,10 @@ private fun exportInstalledApkToDownloads(context: Context): String {
                     inStream.copyTo(outStream)
                 }
             }
-            "Saved direct APK: ${outFile.absolutePath} ($sizeMb)"
+            "Saved inside Android: ${outFile.absolutePath} ($sizeMb)"
         }
     } catch (t: Throwable) {
-        "Direct APK located at app/build/outputs/apk/debug/app-debug.apk (${t.localizedMessage ?: "ready"})"
+        "Note: To download the APK to your laptop or phone, use the AI Studio top-right Settings (⚙️) or GitHub button outside the phone screen (${t.localizedMessage ?: "ready"})."
     }
 }
 
